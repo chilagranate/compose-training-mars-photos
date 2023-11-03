@@ -29,6 +29,7 @@ class MarsViewModelTest {
 
     @get:Rule
     val testDispatcher = TestDispatcherRule()
+    //como utilizo funciones asincronas, necesito un dispatcher para entorno de pruebas
 
     @Test
     fun marsViewModel_getMarsPhotos_verifyMarsUiStateSuccess() =
@@ -37,8 +38,7 @@ class MarsViewModelTest {
                 marsPhotosRepository = FakeNetworkMarsPhotosRepository()
             )
             assertEquals(
-                MarsUiState.Success("Success: ${FakeDataSource.photosList.size} Mars " +
-                        "photos retrieved"),
+                MarsUiState.Success(FakeDataSource.photosList),
                 marsViewModel.marsUiState
             )
         }
